@@ -59,10 +59,10 @@ try:
 
     # 2. 通过UART初始化雷达并配置相应参数
     dca_config_file = "configFiles/cf.json" # 记得将cf.json中的lvdsMode设为2，xWR1843只支持2路LVDS lanes
-    radar_config_file = "configFiles/xWR1843_profile_3D.cfg" # 记得将lvdsStreamCfg的第三个参数设置为1开启LVDS数据传输
+    radar_config_file = "configFiles/iwr1443_profile.cfg" # 记得将lvdsStreamCfg的第三个参数设置为1开启LVDS数据传输
     numframes=10
     # 记得改端口号,verbose=True会显示向毫米波雷达板子发送的所有串口指令及响应
-    radar = TI(cli_loc='COM4', data_loc='COM5',data_baud=921600,config_file=radar_config_file,verbose=True)
+    radar = TI(sdk_version=2.1, cli_loc='/dev/ttyACM1', data_loc='/dev/ttyACM0',data_baud=921600,config_file=radar_config_file,verbose=True)
     # radar设置frame个数后会自动停止，无需向FPGA发送停止命令，但仍需向radar发送停止命令
     radar.setFrameCfg(numframes)
 
@@ -86,7 +86,7 @@ try:
     # 7. 通过网口UDP发送开始采集指令
     dca.stream_start()
     # 8. 启动UDP数据包接收线程
-    numframes_out,sortInC_out = dca.fastRead_in_Cpp_async_start(numframes,sortInC=True) # 【方法一】异步调用
+    # numframes_out,sortInC_out = dca.fastRead_in_Cpp_async_start(numframes,sortInC=True) # 【方法一】异步调用
 
     # 9. 通过串口启动雷达
     startTime = datetime.datetime.now()
@@ -94,8 +94,8 @@ try:
     radar.startSensor()
 
     # 10. 等待UDP数据包接收线程结束+解析出原始数据
-    data_buf = dca.fastRead_in_Cpp_async_wait(numframes_out,sortInC_out) # 【方法一】等待异步线程结束
-    # data_buf = dca.fastRead_in_Cpp(numframes,sortInC=True) # 【方法二】同步调用(会丢失开始采集前的包)
+    # data_buf = dca.fastRead_in_Cpp_async_wait(numframes_out,sortInC_out) # 【方法一】等待异步线程结束
+    data_buf = dca.fastRead_in_Cpp(numframes,sortInC=True) # 【方法二】同步调用(会丢失开始采集前的包)
     end = time.time()
     print("time elapsed(s):",end-start)
 

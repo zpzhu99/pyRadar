@@ -769,7 +769,7 @@ class DCA1000:
             firstPacketNum=fpga_udp.get_firstPacketNum()
             lastPacketNum=fpga_udp.get_lastPacketNum()
             print("first Packet Num:%d,last Packet Num:%d"%(firstPacketNum,lastPacketNum))
-            print("received packet num:%d,expected packet num:%d,loss:%.2f%%"%(receivedPacketNum,expectedPacketNum,(expectedPacketNum-receivedPacketNum)/expectedPacketNum*100))
+            # print("received packet num:%d,expected packet num:%d,loss:%.2f%%"%(receivedPacketNum,expectedPacketNum,(expectedPacketNum-receivedPacketNum)/expectedPacketNum*100))
             return recvData
         else:
             print("all received, post processing packets...")
