@@ -382,7 +382,7 @@ class DCA1000:
                 CFG_PARAMS['dataSize'] = int(List[1])  
                 CFG_PARAMS['dataType'] = int(List[2])  
             if 'adcbufCfg' in line:
-                CFG_PARAMS['chirpMode'] = int(List[5])
+                CFG_PARAMS['chirpMode'] = int(List[4])
             if 'Platform' in line:
                 if '14' in line:
                     CFG_PARAMS['platfrom'] = '14'
