@@ -1,0 +1,25 @@
+IWR1843Boost Notes
+
+###########################################################
+mmWave Studio
+###########################################################
+##FPGA Connection Trouble Shooting##
+#Must configure ethernet IP from Control Panel -> Network and Internet -> Network Connections
+#Enable IPv4, MUST disable IPv6
+
+##SPI Connection##
+#Must erase 1843 firmware
+
+###########################################################
+uniFlash
+###########################################################
+##Serial Port Connection Trouble Shooting##
+#Must disconnect DCA from 1843
+#Must reboot 1843 every time before a new flash
+
+###########################################################
+IQ Data Capture
+###########################################################
+## Succeed for one time but then fail
+#Need to flash the mmwave radar again after long time of power-off
+
